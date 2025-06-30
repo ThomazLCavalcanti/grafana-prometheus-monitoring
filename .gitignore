@@ -1,0 +1,22 @@
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+# Configurações de sistema
+.DS_Store
+Thumbs.db
+
+# Docker
+.env
+docker-compose.override.yml
+
+# Grafana
+grafana/data/
+grafana/plugins/
+grafana/provisioning/dashboards/*.bak
+grafana/provisioning/dashboards/*.tmp
+
+# Backups ou arquivos locais
+*.bak
+*.swp
+*.old
