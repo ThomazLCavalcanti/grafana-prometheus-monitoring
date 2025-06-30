@@ -1,0 +1,95 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "type": "dashboard",
+        "name": "Annotations & Alerts",
+        "enable": true
+      }
+    ]
+  },
+  "title": "Node Exporter - Monitoramento",
+  "editable": true,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "title": "Uso de CPU (%)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "title": "Uso de Memória (RAM)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "title": "Uso de Disco",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"} - node_filesystem_free_bytes{fstype!=\"tmpfs\",fstype!=\"overlay\"}",
+          "legendFormat": "{{instance}} - {{mountpoint}}",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "5s"
+}
